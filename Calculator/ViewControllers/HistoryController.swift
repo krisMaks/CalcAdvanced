@@ -8,15 +8,15 @@
 import UIKit
 
 class HistoryController: UIViewController {
-    
-    let tableView: UITableView = {
+    //Создание необходимых UI-элементов, констант и переменных
+    private let tableView: UITableView = {
         let table = UITableView()
         table.backgroundColor = .black
         table.allowsSelection = false
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Menlo", size: 30)
         label.textColor = .white
@@ -25,8 +25,9 @@ class HistoryController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var sharedConstraints = [NSLayoutConstraint]()
+    private var sharedConstraints = [NSLayoutConstraint]()
     var historyItem = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -36,25 +37,28 @@ class HistoryController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(HistoryCell.self, forCellReuseIdentifier: HistoryCell.reuseID)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.separatorColor = .white
     }
-    
-    func setupView() {
+    //Добавление subview на view
+    private func setupView() {
         view.addSubview(titleLabel)
         view.addSubview(tableView)
     }
-    
-    func addConstraints() {
+    //Установка констрейнтов для элементов
+    private func addConstraints() {
         NSLayoutConstraint.activate([titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
                                      titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
         sharedConstraints = tableView.addConstraints(top: titleLabel.bottomAnchor,
+                                                     topConstant: 20,
                                                      bottom: view.safeAreaLayoutGuide.bottomAnchor,
                                                      leading: view.safeAreaLayoutGuide.leadingAnchor,
                                                      trailing: view.safeAreaLayoutGuide.trailingAnchor)
         
     }
 }
-
-
+    //Реализация методов UITableViewDelegate и UITableViewDataSource
 extension HistoryController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         historyItem.count
@@ -63,6 +67,7 @@ extension HistoryController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.reuseID) as! HistoryCell
         cell.itemLabel.text = historyItem[indexPath.row]
+        cell.layoutIfNeeded()
         return cell
     }
 }

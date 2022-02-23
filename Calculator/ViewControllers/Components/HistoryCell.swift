@@ -8,30 +8,33 @@
 import UIKit
 
 class HistoryCell: UITableViewCell {
-    
+    //Создание необходимых UI-элементов, констант и переменных
     static let reuseID = "HistoryCell"
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
     
     let itemLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: "Menlo", size: 25)
+        label.font = UIFont(name: "Menlo", size: 20)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.addSubview(itemLabel)
+    }
+    
     override func layoutSubviews() {
-        self.contentView.addSubview(itemLabel)
+        super.layoutSubviews()
         self.backgroundColor = .clear
         addConstraints()
     }
-    
-    func addConstraints() {
-        itemLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        itemLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+    //Установка констрейнтов для элементов
+    private func addConstraints() {
+        var constraints = [NSLayoutConstraint]()
+        constraints = itemLabel.addConstraints(top: topAnchor, topConstant: 10, bottom: bottomAnchor, bottomConstant: -10, trailing: trailingAnchor, leading: leadingAnchor, trailingConstant: -20, leadingConstant: 20)
+        NSLayoutConstraint.activate(constraints)
     }
     
     required init?(coder: NSCoder) {

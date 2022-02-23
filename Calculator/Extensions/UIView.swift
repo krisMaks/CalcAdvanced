@@ -17,8 +17,20 @@ extension UIView {
         constraints.append(contentsOf: [ self.topAnchor.constraint(equalTo: top),
                                          self.bottomAnchor.constraint(equalTo: bottom),
                                          self.trailingAnchor.constraint(equalTo: trailing),
-                                         self.leadingAnchor.constraint(equalTo: leading)
-        ])
+                                         self.leadingAnchor.constraint(equalTo: leading)])
+        return constraints
+    }
+    
+    func addConstraints(top: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+                        topConstant: CGFloat,
+                        bottom: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+                        leading: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+                        trailing: NSLayoutAnchor<NSLayoutXAxisAnchor>) -> [NSLayoutConstraint] {
+        var constraints: [NSLayoutConstraint] = []
+        constraints.append(contentsOf: [self.topAnchor.constraint(equalTo: top, constant: topConstant),
+                                        self.bottomAnchor.constraint(equalTo: bottom),
+                                        self.trailingAnchor.constraint(equalTo: trailing),
+                                        self.leadingAnchor.constraint(equalTo: leading)])
         return constraints
     }
     
@@ -50,6 +62,22 @@ extension UIView {
     }
     
     func addConstraints(top: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+                        topConstant: CGFloat,
+                        bottom: NSLayoutAnchor<NSLayoutYAxisAnchor>,
+                        bottomConstant: CGFloat,
+                        trailing: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+                        leading: NSLayoutAnchor<NSLayoutXAxisAnchor>,
+                        trailingConstant: CGFloat,
+                        leadingConstant: CGFloat) -> [NSLayoutConstraint]  {
+        var constraints: [NSLayoutConstraint] = []
+        constraints.append(contentsOf: [self.topAnchor.constraint(equalTo: top, constant: topConstant),
+                                        self.bottomAnchor.constraint(equalTo: bottom, constant: bottomConstant),
+                                        self.trailingAnchor.constraint(equalTo: trailing, constant: trailingConstant),
+                                        self.leadingAnchor.constraint(equalTo: leading, constant: leadingConstant)])
+        return constraints
+    }
+    
+    func addConstraints(top: NSLayoutAnchor<NSLayoutYAxisAnchor>,
                         leading: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                         trailing: NSLayoutAnchor<NSLayoutXAxisAnchor>,
                         height: NSLayoutDimension,
@@ -58,8 +86,7 @@ extension UIView {
         constraints.append(contentsOf: [ self.topAnchor.constraint(equalTo: top),
                                          self.trailingAnchor.constraint(equalTo: trailing),
                                          self.leadingAnchor.constraint(equalTo: leading),
-                                         self.heightAnchor.constraint(equalTo: height, multiplier: multiplier)
-        ])
+                                         self.heightAnchor.constraint(equalTo: height, multiplier: multiplier)])
         return constraints
     }
 }
