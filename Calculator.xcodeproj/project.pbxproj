@@ -73,7 +73,6 @@
 				AFD28F8327C586FE00F96AD0 /* App */,
 				AFD28F8427C5871000F96AD0 /* Extensions */,
 				AFD28F8527C5872800F96AD0 /* ViewControllers */,
-				AFD28F8127C57C4F00F96AD0 /* UserSettings.swift */,
 				AFD28F6D27C57A4100F96AD0 /* Info.plist */,
 			);
 			path = Calculator;
@@ -84,6 +83,7 @@
 			children = (
 				AFD28F5F27C57A3D00F96AD0 /* AppDelegate.swift */,
 				AFD28F6127C57A3D00F96AD0 /* SceneDelegate.swift */,
+				AFD28F8127C57C4F00F96AD0 /* UserSettings.swift */,
 				AFD28F6827C57A4100F96AD0 /* Assets.xcassets */,
 				AFD28F6A27C57A4100F96AD0 /* LaunchScreen.storyboard */,
 			);

@@ -261,7 +261,6 @@ class MainViewController: UIViewController {
     @objc func unaryOperatorPressed(_ sender: UIButton) {
         guard let unaryOperator = sender.currentTitle else { return }
         operationSymbol = unaryOperator
-        firstOperand = currentInput
         stillTyping = false
         isDot = false
         switch operationSymbol {
@@ -285,6 +284,11 @@ class MainViewController: UIViewController {
             }
         default: break
         }
+        if firstOperand != 0 {
+            secondOperand = currentInput
+        } else {
+            firstOperand = currentInput
+        }
     }
     
     @objc func equalPressed(_ sender: UIButton) {
@@ -295,13 +299,7 @@ class MainViewController: UIViewController {
         if isBrakets {
             stillTyping = false
             if currentResult.numberBrackets() {
-                let replaseExpression = currentResult.replaceOperations()
-                let expression = NSExpression(format: replaseExpression)
-                guard let result = expression.expressionValue(with: nil, context: nil) else { currentInput = 0
-                    isBrakets = false
-                    return
-                }
-                secondOperand = (result as AnyObject).doubleValue
+                bracketOperation(with: currentResult)
             } else {
                 currentInput = 0
                 isBrakets = false
@@ -333,15 +331,14 @@ class MainViewController: UIViewController {
     @objc func memoryOperatorPressed(_ sender: UIButton) {
         guard let memoryOperator = sender.currentTitle else { return }
         operationSymbol = memoryOperator
-        firstOperand = currentInput
         stillTyping = false
         switch operationSymbol {
         case "MC":
             memory = [0]
         case "M＋":
-            memory.append(firstOperand + memory.last!)
+            memory.append(currentInput + memory.last!)
         case "M౼":
-            memory.append(firstOperand - memory.last!)
+            memory.append(currentInput - memory.last!)
         case "MR":
             currentInput = memory.last!
         default: break
@@ -361,23 +358,26 @@ class MainViewController: UIViewController {
         guard let currentResult = resultLabel.text else { return }
         if stillTyping && !isDot {
             resultLabel.text = currentResult + "."
-            isDot = true
         } else if !stillTyping && !isDot {
             resultLabel.text = "0."
-            isDot = true
             stillTyping = true
         }
+        isDot = true
     }
     
     @objc func otherOperatorPressed(_ sender: UIButton) {
         guard let otherOperator = sender.currentTitle else { return }
         operationSymbol = otherOperator
-        firstOperand = currentInput
         stillTyping = false
         
         switch operationSymbol {
         case "π":
             currentInput = Double.pi
+            if firstOperand != 0 {
+                secondOperand = currentInput
+            } else {
+                firstOperand = currentInput
+            }
         case "AC":
             firstOperand = 0
             secondOperand = 0
@@ -388,6 +388,11 @@ class MainViewController: UIViewController {
             isBrakets = false
         case "e":
             currentInput = exp(1)
+            if firstOperand != 0 {
+                secondOperand = currentInput
+            } else {
+                firstOperand = currentInput
+            }
         default: break
         }
     }
@@ -421,8 +426,19 @@ class MainViewController: UIViewController {
     }
     
     private func unaryOperation(_ operation: (Double) -> Double) {
-        currentInput = operation(firstOperand)
+        currentInput = operation(currentInput)
         stillTyping = false
+    }
+    
+    private func bracketOperation(with expression: String) {
+        let replaseExpression = expression.replaceOperations()
+        let expression = NSExpression(format: replaseExpression)
+        guard let result = expression.expressionValue(with: nil, context: nil) else {
+            currentInput = 0
+            isBrakets = false
+            return
+        }
+        secondOperand = (result as AnyObject).doubleValue
     }
     
     //MARK: - History
