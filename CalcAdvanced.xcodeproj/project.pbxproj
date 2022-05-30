@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AFD28F5C27C57A3D00F96AD0 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFD28F5C27C57A3D00F96AD0 /* CalcAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalcAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD28F5F27C57A3D00F96AD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFD28F6127C57A3D00F96AD0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AFD28F6327C57A3D00F96AD0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +51,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF8809ED28428E1600B4457A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AFD28F6327C57A3D00F96AD0 /* MainViewController.swift */,
+				AFD28F7327C57B0200F96AD0 /* HistoryController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AF8809EE28428E2100B4457A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AFD28F8627C5873E00F96AD0 /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AF8809EF28428E2800B4457A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AFD28F5327C57A3D00F96AD0 = {
 			isa = PBXGroup;
 			children = (
@@ -62,7 +86,7 @@
 		AFD28F5D27C57A3D00F96AD0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AFD28F5C27C57A3D00F96AD0 /* Calculator.app */,
+				AFD28F5C27C57A3D00F96AD0 /* CalcAdvanced.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,9 +94,11 @@
 		AFD28F5E27C57A3D00F96AD0 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				AF8809EF28428E2800B4457A /* Model */,
+				AF8809EE28428E2100B4457A /* View */,
+				AF8809ED28428E1600B4457A /* Controller */,
 				AFD28F8327C586FE00F96AD0 /* App */,
 				AFD28F8427C5871000F96AD0 /* Extensions */,
-				AFD28F8527C5872800F96AD0 /* ViewControllers */,
 				AFD28F6D27C57A4100F96AD0 /* Info.plist */,
 			);
 			path = Calculator;
@@ -102,16 +128,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		AFD28F8527C5872800F96AD0 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				AFD28F6327C57A3D00F96AD0 /* MainViewController.swift */,
-				AFD28F7327C57B0200F96AD0 /* HistoryController.swift */,
-				AFD28F8627C5873E00F96AD0 /* Components */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		AFD28F8627C5873E00F96AD0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,9 +139,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AFD28F5B27C57A3D00F96AD0 /* Calculator */ = {
+		AFD28F5B27C57A3D00F96AD0 /* CalcAdvanced */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AFD28F7027C57A4100F96AD0 /* Build configuration list for PBXNativeTarget "Calculator" */;
+			buildConfigurationList = AFD28F7027C57A4100F96AD0 /* Build configuration list for PBXNativeTarget "CalcAdvanced" */;
 			buildPhases = (
 				AFD28F5827C57A3D00F96AD0 /* Sources */,
 				AFD28F5927C57A3D00F96AD0 /* Frameworks */,
@@ -135,9 +151,9 @@
 			);
 			dependencies = (
 			);
-			name = Calculator;
+			name = CalcAdvanced;
 			productName = Calculator;
-			productReference = AFD28F5C27C57A3D00F96AD0 /* Calculator.app */;
+			productReference = AFD28F5C27C57A3D00F96AD0 /* CalcAdvanced.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -155,7 +171,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AFD28F5727C57A3D00F96AD0 /* Build configuration list for PBXProject "Calculator" */;
+			buildConfigurationList = AFD28F5727C57A3D00F96AD0 /* Build configuration list for PBXProject "CalcAdvanced" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -168,7 +184,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AFD28F5B27C57A3D00F96AD0 /* Calculator */,
+				AFD28F5B27C57A3D00F96AD0 /* CalcAdvanced */,
 			);
 		};
 /* End PBXProject section */
@@ -344,7 +360,7 @@
 				DEVELOPMENT_TEAM = M7593XP8TX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Calculator/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Calculator;
+				INFOPLIST_KEY_CFBundleDisplayName = CalcAdvanced;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -356,7 +372,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Kristen.Calculator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kristen.CalcAdvanced;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -374,7 +390,7 @@
 				DEVELOPMENT_TEAM = M7593XP8TX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Calculator/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Calculator;
+				INFOPLIST_KEY_CFBundleDisplayName = CalcAdvanced;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -386,7 +402,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Kristen.Calculator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kristen.CalcAdvanced;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -397,7 +413,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AFD28F5727C57A3D00F96AD0 /* Build configuration list for PBXProject "Calculator" */ = {
+		AFD28F5727C57A3D00F96AD0 /* Build configuration list for PBXProject "CalcAdvanced" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AFD28F6E27C57A4100F96AD0 /* Debug */,
@@ -406,7 +422,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AFD28F7027C57A4100F96AD0 /* Build configuration list for PBXNativeTarget "Calculator" */ = {
+		AFD28F7027C57A4100F96AD0 /* Build configuration list for PBXNativeTarget "CalcAdvanced" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AFD28F7127C57A4100F96AD0 /* Debug */,
