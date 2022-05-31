@@ -8,70 +8,8 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    //Создание необходимых UI-элементов, констант и переменных
-    private let resultLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Menlo", size: 35)
-        label.textColor = .white
-        label.textAlignment = .right
-        label.text = "0"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    private let historyButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.addStyleHistoryButton()
-        button.addTarget(self, action: #selector(getHistory), for: .touchUpInside)
-        return button
-    }()
-    private let resultView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    private let firstLineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.setConfig(axis: .horizontal)
-        return stackView
-    }()
     
-    private let secondLineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.setConfig(axis: .horizontal)
-        return stackView
-    }()
     
-    private let thirdLineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.setConfig(axis: .horizontal)
-        return stackView
-    }()
-    
-    private let fourthLineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.setConfig(axis: .horizontal)
-        return stackView
-    }()
-    
-    private let fifthLineStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.setConfig(axis: .horizontal)
-        return stackView
-    }()
-    
-    private let verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.setConfig(axis: .vertical)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private var sharedConstraints: [NSLayoutConstraint] = []
-    
-    private let namesSharedButton: [[String]] = [["AC", "x²", "x³", "xª", "÷"], ["MC", "7", "8", "9", "×"], ["M＋", "4", "5", "6", "-"], ["M౼", "1", "2", "3", "+"], ["MR", "±", "0", ".", "="]]
-    private let namesCompactButton: [[String]] = [["π", "AC", "x²", "x³", "xª", "÷"], ["e", "MC", "7", "8", "9", "×"], ["sin", "M＋", "4", "5", "6", "-"], ["cos", "M౼", "1", "2", "3", "+"], ["tan", "MR", "±", "0", ".", "="]]
-    private let namesRegularButton: [[String]] = [["(", "π", "AC", "x²", "x³", "xª", "÷"], [")", "e", "MC", "7", "8", "9", "×"], ["√", "sin", "M＋", "4", "5", "6", "-"], ["∛", "cos", "M౼", "1", "2", "3", "+"], ["%", "tan", "MR", "±", "0", ".", "="]]
-    private var buttons = [[UIButton]]()
     private var firstOperand: Double = 0
     private var secondOperand: Double = 0
     private var memory: [Double] = [0]
@@ -79,18 +17,18 @@ class MainViewController: UIViewController {
     private var isDot = false
     private var stillTyping = false
     private var isBrakets = false
-    
+    private var mainView = MainView()
     private var currentInput: Double {
         get {
-            return Double(resultLabel.text ?? "0") ?? 0
+            return Double(mainView.resultLabel.text ?? "0") ?? 0
         }
         set {
             let value = "\(newValue)"
             let valueArray = value.components(separatedBy: ".")
             if valueArray[1] == "0" {
-                resultLabel.text = "\(valueArray[0])"
+                mainView.resultLabel.text = "\(valueArray[0])"
             } else {
-                resultLabel.text = "\(newValue)"
+                mainView.resultLabel.text = "\(newValue)"
             }
             stillTyping = false
         }
@@ -98,128 +36,30 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setConstraints()
+        view = mainView
+        mainView.setupView()
+        mainView.setConstraints()
         layoutTrait(traitCollection: UIScreen.main.traitCollection)
+        mainView.historyButton.addTarget(self, action: #selector(getHistory), for: .touchUpInside)
     }
     
     //MARK: - Setings view
-    //Добавление subview на view
-    private func setupView() {
-        verticalStackView.addArrangedSubview(firstLineStackView)
-        verticalStackView.addArrangedSubview(secondLineStackView)
-        verticalStackView.addArrangedSubview(thirdLineStackView)
-        verticalStackView.addArrangedSubview(fourthLineStackView)
-        verticalStackView.addArrangedSubview(fifthLineStackView)
-        resultView.addSubview(historyButton)
-        resultView.addSubview(resultLabel)
-        view.addSubview(resultView)
-        view.addSubview(verticalStackView)
-    }
-    //Установка констрейнтов для элементов
-    private func setConstraints() {
-        sharedConstraints = resultView.addConstraints(top: view.safeAreaLayoutGuide.topAnchor,
-                                                      leading: view.safeAreaLayoutGuide.leadingAnchor,
-                                                      trailing: view.safeAreaLayoutGuide.trailingAnchor,
-                                                      height: view.heightAnchor,
-                                                      multiplier: 0.2)
-        sharedConstraints += historyButton.addConstraints(top: resultView.topAnchor,
-                                                          trailing: resultView.trailingAnchor,
-                                                          trailingConstant: -10,
-                                                          height: 25,
-                                                          width: 100)
-        sharedConstraints += resultLabel.addConstraints(bottom: resultView.bottomAnchor,
-                                                        trailing: resultView.trailingAnchor,
-                                                        leading: resultView.leadingAnchor,
-                                                        trailingConstant: -10,
-                                                        leadingConstant: 10,
-                                                        height: 40)
-        sharedConstraints += verticalStackView.addConstraints(top: resultView.bottomAnchor,
-                                                              bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                                                              leading: view.safeAreaLayoutGuide.leadingAnchor,
-                                                              trailing: view.safeAreaLayoutGuide.trailingAnchor)
-    }
-    //Создание кнопок для различных рахмеров экрана и добавление target для них
-    private func setButtons(with namesButton: [[String]]) {
-        var newButtons = [UIButton]()
-        for namesLine in namesButton {
-            for name in namesLine {
-                let button = UIButton(type: .system)
-                button.addStyleMainButton()
-                button.setTitle(name, for: .normal)
-                newButtons.append(button)
-                if !name.containsOtherThan(.nums) {
-                    button.backgroundColor = UIColor(named: "grayButton")
-                } else if !name.containsOtherThan(.mainOperations) {
-                    button.backgroundColor = UIColor(named: "orangeButton")
-                } else {
-                    button.backgroundColor = UIColor(named: "darkGrayButton")
-                }
-                if !name.containsOtherThan(.nums) {
-                    button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.binaryOperations) {
-                    button.addTarget(self, action: #selector(binaryOperatorPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.equal) {
-                    button.addTarget(self, action: #selector(equalPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.dot) {
-                    button.addTarget(self, action: #selector(dotOperatorPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.unaryOperations) {
-                    button.addTarget(self, action: #selector(unaryOperatorPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.other) {
-                    button.addTarget(self, action: #selector(otherOperatorPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.percent) {
-                    button.addTarget(self, action: #selector(persentOperatorPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.memory) {
-                    button.addTarget(self, action: #selector(memoryOperatorPressed), for: .touchUpInside)
-                }
-                if !name.containsOtherThan(.bracket) {
-                    button.addTarget(self, action: #selector(bracketPressed), for: .touchUpInside)
-                }
-            }
-            buttons.append(newButtons)
-            newButtons.removeAll()
-        }
-    }
+   
+    //Создание кнопок для различных размеров экрана и добавление target для них
+    
     //Размещение кнопок в горизонтальных stackView
-    private func setView(with namesButtons: [[String]]) {
-        let stacks = [firstLineStackView, secondLineStackView, thirdLineStackView, fourthLineStackView, fifthLineStackView]
-        removeViewInStack()
-        setButtons(with: namesButtons)
-        for (index, buttonsLine) in buttons.enumerated() {
-            for button in buttonsLine {
-                stacks[index].addArrangedSubview(button)
-            }
-        }
-    }
-    //Вспомогательный метод для очистки subview в stackView
-    private func removeViewInStack() {
-        let stacks = [firstLineStackView, secondLineStackView, thirdLineStackView, fourthLineStackView, fifthLineStackView]
-        for stack in stacks {
-            for view in stack.arrangedSubviews {
-                stack.removeArrangedSubview(view)
-                view.removeFromSuperview()
-            }
-        }
-        buttons.removeAll()
-    }
+    
     
     //MARK: - Change layout
     //Метод для получения текущего размера экрана, используется в traitCollectionDidChange()
     private func layoutTrait(traitCollection: UITraitCollection) {
-        NSLayoutConstraint.activate(sharedConstraints)
+        NSLayoutConstraint.activate(mainView.sharedConstraints)
         if traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular {
-            setView(with: namesSharedButton)
-        } else if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
-            setView(with: namesRegularButton)
+            mainView.setView(with: mainView.namesSharedButton)
+//        } else if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
+//            setView(with: namesRegularButton)
         } else {
-            setView(with: namesCompactButton)
+            mainView.setView(with: mainView.namesRegularButton)
         }
     }
     
@@ -232,24 +72,24 @@ class MainViewController: UIViewController {
     //MARK: - Targets
     //Target для кнопок
     @objc func numberPressed(_ sender: UIButton) {
-        guard let number = sender.currentTitle, let currentResult = resultLabel.text else { return }
+        guard let number = sender.currentTitle, let currentResult = mainView.resultLabel.text else { return }
         if stillTyping {
             if currentResult.count < 12 {
-                resultLabel.text = currentResult + number
+                mainView.resultLabel.text = currentResult + number
             }
         } else if isBrakets {
             stillTyping = true
-            resultLabel.text = currentResult + number
+            mainView.resultLabel.text = currentResult + number
         } else {
-            resultLabel.text = number
+            mainView.resultLabel.text = number
             stillTyping = true
         }
     }
     
     @objc func binaryOperatorPressed(_ sender: UIButton) {
-        guard let binaryOperator = sender.currentTitle, let currentResult = resultLabel.text else { return }
+        guard let binaryOperator = sender.currentTitle, let currentResult = mainView.resultLabel.text else { return }
         if isBrakets {
-            resultLabel.text = currentResult + binaryOperator
+            mainView.resultLabel.text = currentResult + binaryOperator
         } else {
             operationSymbol = binaryOperator
             firstOperand = currentInput
@@ -292,7 +132,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func equalPressed(_ sender: UIButton) {
-        guard let currentResult = resultLabel.text else { return }
+        guard let currentResult = mainView.resultLabel.text else { return }
         if stillTyping && !isBrakets {
             secondOperand = currentInput
         }
@@ -355,11 +195,11 @@ class MainViewController: UIViewController {
     }
     
     @objc func dotOperatorPressed(_ sender: UIButton) {
-        guard let currentResult = resultLabel.text else { return }
+        guard let currentResult = mainView.resultLabel.text else { return }
         if stillTyping && !isDot {
-            resultLabel.text = currentResult + "."
+            mainView.resultLabel.text = currentResult + "."
         } else if !stillTyping && !isDot {
-            resultLabel.text = "0."
+            mainView.resultLabel.text = "0."
             stillTyping = true
         }
         isDot = true
@@ -398,12 +238,12 @@ class MainViewController: UIViewController {
     }
     
     @objc func bracketPressed(_ sender: UIButton) {
-        guard let bracket = sender.currentTitle, let currentResult = resultLabel.text else { return }
+        guard let bracket = sender.currentTitle, let currentResult = mainView.resultLabel.text else { return }
         isBrakets = true
         if stillTyping {
-            resultLabel.text = currentResult + bracket
+            mainView.resultLabel.text = currentResult + bracket
         } else {
-            resultLabel.text = bracket
+            mainView.resultLabel.text = bracket
         }
         stillTyping = true
     }
@@ -411,7 +251,7 @@ class MainViewController: UIViewController {
     @objc func getHistory() {
         let vc = HistoryController()
         if let history = UserSettings.historyArray {
-            vc.historyItem = history
+            vc.historyView.historyItem = history
             present(vc, animated: true, completion: nil)
         } else {
             self.alertEmptyHistory()

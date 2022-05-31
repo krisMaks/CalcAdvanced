@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF8809F228451BC500B4457A /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = AF8809F128451BC500B4457A /* PinLayout */; };
+		AF880A082846761300B4457A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF880A072846761300B4457A /* MainView.swift */; };
+		AF880A0A28467AEA00B4457A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF880A0928467AEA00B4457A /* HistoryView.swift */; };
 		AFD28F6027C57A3D00F96AD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD28F5F27C57A3D00F96AD0 /* AppDelegate.swift */; };
 		AFD28F6227C57A3D00F96AD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD28F6127C57A3D00F96AD0 /* SceneDelegate.swift */; };
 		AFD28F6427C57A3D00F96AD0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD28F6327C57A3D00F96AD0 /* MainViewController.swift */; };
@@ -23,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF880A072846761300B4457A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AF880A0928467AEA00B4457A /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		AFD28F5C27C57A3D00F96AD0 /* CalcAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalcAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD28F5F27C57A3D00F96AD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFD28F6127C57A3D00F96AD0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF8809F228451BC500B4457A /* PinLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				AFD28F8627C5873E00F96AD0 /* Components */,
+				AF880A072846761300B4457A /* MainView.swift */,
+				AF880A0928467AEA00B4457A /* HistoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +160,9 @@
 			dependencies = (
 			);
 			name = CalcAdvanced;
+			packageProductDependencies = (
+				AF8809F128451BC500B4457A /* PinLayout */,
+			);
 			productName = Calculator;
 			productReference = AFD28F5C27C57A3D00F96AD0 /* CalcAdvanced.app */;
 			productType = "com.apple.product-type.application";
@@ -180,6 +191,9 @@
 				Base,
 			);
 			mainGroup = AFD28F5327C57A3D00F96AD0;
+			packageReferences = (
+				AF8809F028451BC500B4457A /* XCRemoteSwiftPackageReference "PinLayout" */,
+			);
 			productRefGroup = AFD28F5D27C57A3D00F96AD0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -207,8 +221,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFD28F6427C57A3D00F96AD0 /* MainViewController.swift in Sources */,
+				AF880A082846761300B4457A /* MainView.swift in Sources */,
 				AFD28F7427C57B0200F96AD0 /* HistoryController.swift in Sources */,
 				AFD28F7A27C57BC100F96AD0 /* UIStackView.swift in Sources */,
+				AF880A0A28467AEA00B4457A /* HistoryView.swift in Sources */,
 				AFD28F6027C57A3D00F96AD0 /* AppDelegate.swift in Sources */,
 				AFD28F8027C57C2900F96AD0 /* UIViewController.swift in Sources */,
 				AFD28F6227C57A3D00F96AD0 /* SceneDelegate.swift in Sources */,
@@ -432,6 +448,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AF8809F028451BC500B4457A /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/PinLayout";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF8809F128451BC500B4457A /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF8809F028451BC500B4457A /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AFD28F5427C57A3D00F96AD0 /* Project object */;
 }
