@@ -71,7 +71,7 @@ class MainView: UIView {
     let namesSharedButton: [[String]] = [["AC", "x²", "x³", "xª", "÷"], ["MC", "7", "8", "9", "×"], ["M＋", "4", "5", "6", "-"], ["M౼", "1", "2", "3", "+"], ["MR", "±", "0", ".", "="]]
     let namesCompactButton: [[String]] = [["π", "AC", "x²", "x³", "xª", "÷"], ["e", "MC", "7", "8", "9", "×"], ["sin", "M＋", "4", "5", "6", "-"], ["cos", "M౼", "1", "2", "3", "+"], ["tan", "MR", "±", "0", ".", "="]]
     let namesRegularButton: [[String]] = [["(", "π", "AC", "x²", "x³", "xª", "÷"], [")", "e", "MC", "7", "8", "9", "×"], ["√", "sin", "M＋", "4", "5", "6", "-"], ["∛", "cos", "M౼", "1", "2", "3", "+"], ["%", "tan", "MR", "±", "0", ".", "="]]
-    private var buttons = [[UIButton]]()
+    var buttons = [[UIButton]]()
     
     //Добавление subview на view
     func setupView() {
@@ -124,33 +124,7 @@ class MainView: UIView {
                 } else {
                     button.backgroundColor = UIColor(named: "darkGrayButton")
                 }
-//                if !name.containsOtherThan(.nums) {
-//                    button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.binaryOperations) {
-//                    button.addTarget(self, action: #selector(binaryOperatorPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.equal) {
-//                    button.addTarget(self, action: #selector(equalPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.dot) {
-//                    button.addTarget(self, action: #selector(dotOperatorPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.unaryOperations) {
-//                    button.addTarget(self, action: #selector(unaryOperatorPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.other) {
-//                    button.addTarget(self, action: #selector(otherOperatorPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.percent) {
-//                    button.addTarget(self, action: #selector(persentOperatorPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.memory) {
-//                    button.addTarget(self, action: #selector(memoryOperatorPressed), for: .touchUpInside)
-//                }
-//                if !name.containsOtherThan(.bracket) {
-//                    button.addTarget(self, action: #selector(bracketPressed), for: .touchUpInside)
-//                }
+
             }
             buttons.append(newButtons)
             newButtons.removeAll()

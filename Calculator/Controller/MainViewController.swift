@@ -47,16 +47,52 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate(mainView.sharedConstraints)
         if traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular {
             mainView.setView(with: mainView.namesSharedButton)
+            addActions()
 //        } else if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
 //            setView(with: namesRegularButton)
         } else {
             mainView.setView(with: mainView.namesRegularButton)
+            addActions()
         }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         layoutTrait(traitCollection: traitCollection)
+    }
+    
+    func addActions() {
+        for lines in mainView.buttons {
+            for button in lines {
+                if !(button.currentTitle?.containsOtherThan(.nums))! {
+                    button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.binaryOperations))! {
+                    button.addTarget(self, action: #selector(binaryOperatorPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.equal))! {
+                    button.addTarget(self, action: #selector(equalPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.dot))! {
+                    button.addTarget(self, action: #selector(dotOperatorPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.unaryOperations))! {
+                    button.addTarget(self, action: #selector(unaryOperatorPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.other))! {
+                    button.addTarget(self, action: #selector(otherOperatorPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.percent))! {
+                    button.addTarget(self, action: #selector(persentOperatorPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.memory))! {
+                    button.addTarget(self, action: #selector(memoryOperatorPressed), for: .touchUpInside)
+                }
+                if !(button.currentTitle?.containsOtherThan(.bracket))! {
+                    button.addTarget(self, action: #selector(bracketPressed), for: .touchUpInside)
+                }
+            }
+        }
     }
     
     

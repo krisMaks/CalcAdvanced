@@ -16,29 +16,10 @@ struct CalculateModel {
     private var isDot = false
     var stillTyping = false
     private var isBrakets = false
-//    var currentInput: String = "0"
-//    var currentResult: String = "0"
-//    private var currentInput: Double {
-//        get {
-//            return Double(mainView.resultLabel.text ?? "0") ?? 0
-//        }
-//        set {
-//            let value = "\(newValue)"
-//            let valueArray = value.components(separatedBy: ".")
-//            if valueArray[1] == "0" {
-//                mainView.resultLabel.text = "\(valueArray[0])"
-//            } else {
-//                mainView.resultLabel.text = "\(newValue)"
-//            }
-//            stillTyping = false
-//        }
-//    }
     
     mutating func numberPressed(_ numberText: String, _ resultLabelText: String) -> String? {
-        if stillTyping && isBrakets {
-            if resultLabelText.count < 12 {
-                return resultLabelText + numberText
-            }
+        if stillTyping {
+            return resultLabelText + numberText
         } else if isBrakets {
             stillTyping = true
             return resultLabelText + numberText
@@ -46,7 +27,6 @@ struct CalculateModel {
             stillTyping = true
             return numberText
         }
-        return nil
     }
     
     mutating func binaryOperatorPressed(_ binaryOperator: String, _ currentResult: String, _ currentInp: Double) -> String? {
@@ -114,10 +94,10 @@ struct CalculateModel {
         }
         if isBrakets {
             stillTyping = false
+            isBrakets = false
             if currentResult.numberBrackets() {
                 return bracketOperation(with: currentResult) ?? 0
             } else {
-                isBrakets = false
                 return 0
             }
         }
@@ -150,7 +130,7 @@ struct CalculateModel {
             return 0
         }
         secondOperand = (result as AnyObject).doubleValue
-        return nil
+        return secondOperand
     }
     
     mutating func memoryOperatorPressed(_ memoryOperator: String, _ currentInput: Double) -> Double? {
