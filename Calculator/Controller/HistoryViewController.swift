@@ -1,5 +1,5 @@
 //
-//  HistoryControllerViewController.swift
+//  HistoryViewController.swift
 //  Calculator
 //
 //  Created by Кристина Максимова on 22.02.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryController: UIViewController {
+class HistoryViewController: UIViewController {
     var historyView = HistoryView()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class HistoryController: UIViewController {
     
 }
     //Реализация методов UITableViewDelegate и UITableViewDataSource
-extension HistoryController: UITableViewDelegate, UITableViewDataSource {
+extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         historyView.historyItem.count
     }
