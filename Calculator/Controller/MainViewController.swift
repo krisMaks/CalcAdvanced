@@ -8,9 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
-    
-    
+ 
     private var mainView = MainView()
     private var model = CalculateModel()
     private var currentInput: Double {
@@ -18,14 +16,18 @@ class MainViewController: UIViewController {
             return Double(mainView.resultLabel.text ?? "0") ?? 0
         }
         set {
-            let value = "\(newValue)"
-            let valueArray = value.components(separatedBy: ".")
-            if valueArray[1] == "0" {
-                mainView.resultLabel.text = "\(valueArray[0])"
+            if newValue.isNaN {
+                mainView.resultLabel.text = "Не определено"
             } else {
-                mainView.resultLabel.text = "\(newValue)"
+                let value = "\(newValue)"
+                let valueArray = value.components(separatedBy: ".")
+                if valueArray[1] == "0" {
+                    mainView.resultLabel.text = "\(valueArray[0])"
+                } else {
+                    mainView.resultLabel.text = "\(newValue.roundWithRule(model.firstOperand, model.secondOperand))"
+                }
+                model.stillTyping = false
             }
-            model.stillTyping = false
         }
     }
     
@@ -119,7 +121,10 @@ class MainViewController: UIViewController {
     
     @objc func equalPressed(_ sender: UIButton) {
         guard let currentResult = mainView.resultLabel.text else { return }
-        guard let result = model.equalPressed(currentResult, currentInput) else { return }
+        guard let result = model.equalPressed(currentResult, currentInput) else {
+            currentInput = 0
+            self.divisionByZero()
+            return }
         currentInput = result
         writeHistory()
     }

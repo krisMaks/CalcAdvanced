@@ -15,4 +15,11 @@ extension MainViewController {
         alertController.addAction(actionAlert)
         present(alertController, animated: true, completion: nil)
     }
+    
+    func divisionByZero() {
+        let alertController = UIAlertController(title: nil, message: "Делить на ноль ЗАПРЕЩЕНО!", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Ok", style: .cancel)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
+    }
 }

@@ -15,6 +15,7 @@ class MainView: UIView {
         label.textColor = .white
         label.textAlignment = .right
         label.text = "0"
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -91,18 +92,20 @@ class MainView: UIView {
                                                       leading: self.safeAreaLayoutGuide.leadingAnchor,
                                                       trailing: self.safeAreaLayoutGuide.trailingAnchor,
                                                       height: self.heightAnchor,
-                                                      multiplier: 0.2)
+                                                      multiplier: 0.3)
         sharedConstraints += historyButton.addConstraints(top: resultView.topAnchor,
                                                           trailing: resultView.trailingAnchor,
                                                           trailingConstant: -10,
                                                           height: 25,
                                                           width: 100)
-        sharedConstraints += resultLabel.addConstraints(bottom: resultView.bottomAnchor,
+        sharedConstraints += resultLabel.addConstraints(top: historyButton.bottomAnchor,
+                                                        topConstant: 5,
+                                                        bottom: resultView.bottomAnchor,
+                                                        bottomConstant: 0,
                                                         trailing: resultView.trailingAnchor,
                                                         leading: resultView.leadingAnchor,
                                                         trailingConstant: -10,
-                                                        leadingConstant: 10,
-                                                        height: 40)
+                                                        leadingConstant: 10)
         sharedConstraints += verticalStackView.addConstraints(top: resultView.bottomAnchor,
                                                               bottom: self.safeAreaLayoutGuide.bottomAnchor,
                                                               leading: self.safeAreaLayoutGuide.leadingAnchor,

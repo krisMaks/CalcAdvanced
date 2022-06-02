@@ -9,17 +9,21 @@ import Foundation
 
 
 struct CalculateModel {
+    var stillTyping = false
     private(set) var firstOperand: Double = 0
     private(set) var secondOperand: Double = 0
-    private var memory: [Double] = [0]
     private(set) var operationSymbol: String = ""
     private var isDot = false
-    var stillTyping = false
+    private var memory: [Double] = [0]
     private var isBrakets = false
     
     mutating func numberPressed(_ numberText: String, _ resultLabelText: String) -> String? {
         if stillTyping {
-            return resultLabelText + numberText
+            if resultLabelText != "0" {
+                return resultLabelText + numberText
+            } else {
+                return numberText
+            }
         } else if isBrakets {
             stillTyping = true
             return resultLabelText + numberText
@@ -53,9 +57,9 @@ struct CalculateModel {
         case "√":
             return unaryOperation(currentInput) { sqrt($0) }
         case "sin":
-            return unaryOperation(currentInput) { sin($0) }
+            return unaryOperation(currentInput) { asin($0) }
         case "cos":
-            return unaryOperation(currentInput) { cos($0) }
+            return unaryOperation(currentInput) { acos($0) }
         case "tan":
             return unaryOperation(currentInput) { tan($0) }
         case "∛":
@@ -110,7 +114,7 @@ struct CalculateModel {
             if secondOperand != 0 {
                 return binaryOperation { $0 / $1 }
             } else {
-                return 0
+                return nil
             }
         case "×":
             return binaryOperation { $0 * $1 }
@@ -185,8 +189,10 @@ struct CalculateModel {
         case "π":
             if firstOperand != 0 {
                 secondOperand = currentInput
+                firstOperand = Double.pi
             } else {
                 firstOperand = currentInput
+                secondOperand = Double.pi
             }
             return Double.pi
         case "AC":
@@ -200,8 +206,10 @@ struct CalculateModel {
         case "e":
             if firstOperand != 0 {
                 secondOperand = currentInput
+                firstOperand = Double.pi
             } else {
                 firstOperand = currentInput
+                secondOperand = Double.pi
             }
             return exp(1)
         default:
