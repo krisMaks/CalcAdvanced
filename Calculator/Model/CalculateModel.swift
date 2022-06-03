@@ -6,18 +6,18 @@
 //
 
 import Foundation
-
+import Expression
 
 struct CalculateModel {
     var stillTyping = false
     private(set) var firstOperand: Double = 0
     private(set) var secondOperand: Double = 0
     private(set) var operationSymbol: String = ""
-    private var isDot = false
     private var memory: [Double] = [0]
     private var isBrakets = false
+    private var isDot = false
     
-    mutating func numberPressed(_ numberText: String, _ resultLabelText: String) -> String? {
+    mutating func numberInput(_ numberText: String, _ resultLabelText: String) -> String? {
         if stillTyping {
             if resultLabelText != "0" {
                 return resultLabelText + numberText
@@ -33,7 +33,7 @@ struct CalculateModel {
         }
     }
     
-    mutating func binaryOperatorPressed(_ binaryOperator: String, _ currentResult: String, _ currentInp: Double) -> String? {
+    mutating func binaryOperatorInput(_ binaryOperator: String, _ currentResult: String, _ currentInp: Double) -> String? {
         if isBrakets {
             return currentResult + binaryOperator
         } else {
@@ -45,7 +45,7 @@ struct CalculateModel {
         }
     }
     
-    mutating func unaryOperatorPressed(_ unaryOperator: String, _ currentInput: Double) -> Double? {
+    mutating func unaryOperatorInput(_ unaryOperator: String, _ currentInput: Double) -> Double? {
         operationSymbol = unaryOperator
         stillTyping = false
         isDot = false
@@ -57,11 +57,11 @@ struct CalculateModel {
         case "√":
             return unaryOperation(currentInput) { sqrt($0) }
         case "sin":
-            return unaryOperation(currentInput) { asin($0) }
+            return unaryOperation(currentInput) { sin(Double.pi * $0 / 180.0) }
         case "cos":
-            return unaryOperation(currentInput) { acos($0) }
+            return unaryOperation(currentInput) { cos(Double.pi * $0 / 180.0) }
         case "tan":
-            return unaryOperation(currentInput) { tan($0) }
+            return unaryOperation(currentInput) { tan(Double.pi * $0 / 180.0) }
         case "∛":
             return unaryOperation(currentInput) { cbrt($0) }
         case "±":
@@ -75,69 +75,7 @@ struct CalculateModel {
         }
     }
     
-    private mutating func binaryOperation(_ operation: (Double, Double) -> Double) -> Double {
-        stillTyping = false
-        isBrakets = false
-        isDot = false
-        return operation(firstOperand, secondOperand)
-    }
-    
-    private mutating func unaryOperation(_ currentInput: Double, _ operation: (Double) -> Double) -> Double {
-        stillTyping = false
-        if firstOperand != 0 {
-            secondOperand = operation(currentInput)
-        } else {
-            firstOperand = operation(currentInput)
-        }
-        return operation(currentInput)
-    }
-    
-    mutating func equalPressed(_ currentResult: String, _ currentInput: Double) -> Double? {
-        if stillTyping && !isBrakets {
-            secondOperand = currentInput
-        }
-        if isBrakets {
-            stillTyping = false
-            isBrakets = false
-            if currentResult.numberBrackets() {
-                return bracketOperation(with: currentResult) ?? 0
-            } else {
-                return 0
-            }
-        }
-        switch operationSymbol {
-        case "+":
-            return binaryOperation { $0 + $1 }
-        case "-":
-            return binaryOperation { $0 - $1 }
-        case "÷":
-            if secondOperand != 0 {
-                return binaryOperation { $0 / $1 }
-            } else {
-                return nil
-            }
-        case "×":
-            return binaryOperation { $0 * $1 }
-        case "xª":
-            return binaryOperation { pow($0, $1) }
-        default:
-            return binaryOperation { $0 + $1 }
-        }
-        
-    }
-    
-    private mutating func bracketOperation(with expression: String) -> Double? {
-        let replaseExpression = expression.replaceOperations()
-        let expression = NSExpression(format: replaseExpression)
-        guard let result = expression.expressionValue(with: nil, context: nil) else {
-            isBrakets = false
-            return 0
-        }
-        secondOperand = (result as AnyObject).doubleValue
-        return secondOperand
-    }
-    
-    mutating func memoryOperatorPressed(_ memoryOperator: String, _ currentInput: Double) -> Double? {
+    mutating func memoryOperatorInput(_ memoryOperator: String, _ currentInput: Double) -> Double? {
         operationSymbol = memoryOperator
         stillTyping = false
         switch operationSymbol {
@@ -157,17 +95,17 @@ struct CalculateModel {
         }
     }
     
-    mutating func persentOperatorPressed(_ currentInput: Double) -> Double? {
+    mutating func persentInput(_ currentInput: Double) -> Double? {
         stillTyping = false
         if firstOperand == 0 {
             return currentInput / 100
         } else {
             secondOperand = firstOperand * currentInput / 100
-            return nil
+            return secondOperand
         }
     }
     
-    mutating func dotOperatorPressed(_ currentResult: String) -> String? {
+    mutating func dotInput(_ currentResult: String) -> String? {
         if stillTyping && !isDot {
             isDot = true
             return currentResult + "."
@@ -181,7 +119,7 @@ struct CalculateModel {
         }
     }
     
-    mutating func otherOperatorPressed(_ otherOperator: String, _ currentInput: Double) -> Double? {
+    mutating func otherOperatorInput(_ otherOperator: String, _ currentInput: Double) -> Double? {
         operationSymbol = otherOperator
         stillTyping = false
         
@@ -206,10 +144,10 @@ struct CalculateModel {
         case "e":
             if firstOperand != 0 {
                 secondOperand = currentInput
-                firstOperand = Double.pi
+                firstOperand = exp(1)
             } else {
                 firstOperand = currentInput
-                secondOperand = Double.pi
+                secondOperand = exp(1)
             }
             return exp(1)
         default:
@@ -217,13 +155,72 @@ struct CalculateModel {
         }
     }
     
-    mutating func bracketPressed(_ bracket: String, _ currentResult: String) -> String {
+    mutating func bracketInput(_ bracket: String, _ currentResult: String) -> String {
         isBrakets = true
         if stillTyping {
             return currentResult + bracket
         } else {
             stillTyping = true
             return bracket
+        }
+    }
+    
+    mutating func equalOperation(_ currentResult: String, _ currentInput: Double) -> Double? {
+        if isBrakets {
+            stillTyping = false
+            isBrakets = false
+            secondOperand = bracketOperation(with: currentResult)
+        } else {
+            secondOperand = currentInput
+        }
+        switch operationSymbol {
+        case "+":
+            return binaryOperation { $0 + $1 }
+        case "-":
+            return binaryOperation { $0 - $1 }
+        case "÷":
+            if secondOperand != 0 {
+                return binaryOperation { $0 / $1 }
+            } else {
+                return nil
+            }
+        case "×":
+            return binaryOperation { $0 * $1 }
+        case "xª":
+            return binaryOperation { pow($0, $1) }
+        default:
+            operationSymbol = "+"
+            return binaryOperation { $0 + $1 }
+        }
+        
+    }
+    
+    private mutating func binaryOperation(_ operation: (Double, Double) -> Double) -> Double {
+        stillTyping = false
+        isBrakets = false
+        isDot = false
+        return operation(firstOperand, secondOperand)
+    }
+    
+    private mutating func unaryOperation(_ currentInput: Double, _ operation: (Double) -> Double) -> Double {
+        stillTyping = false
+        if firstOperand != 0 {
+            secondOperand = operation(currentInput)
+        } else {
+            firstOperand = operation(currentInput)
+        }
+        return operation(currentInput)
+    }
+    
+    private mutating func bracketOperation(with expression: String) -> Double {
+        let replaseExpression = expression.replaceOperations()
+        do {
+            let expression = Expression(replaseExpression)
+            let result = try expression.evaluate()
+            return result
+        } catch {
+            isBrakets = false
+            return 0
         }
     }
 }

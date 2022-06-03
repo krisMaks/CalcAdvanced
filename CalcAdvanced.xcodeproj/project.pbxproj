@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF8809F228451BC500B4457A /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = AF8809F128451BC500B4457A /* PinLayout */; };
 		AF880A082846761300B4457A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF880A072846761300B4457A /* MainView.swift */; };
 		AF880A0A28467AEA00B4457A /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF880A0928467AEA00B4457A /* HistoryView.swift */; };
 		AF880A0C2846A37900B4457A /* CalculateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF880A0B2846A37900B4457A /* CalculateModel.swift */; };
 		AF880A0E2847FEF900B4457A /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF880A0D2847FEF900B4457A /* Double+Extensions.swift */; };
+		AFA7BBCF284A36310067C252 /* Expression in Frameworks */ = {isa = PBXBuildFile; productRef = AFA7BBCE284A36310067C252 /* Expression */; };
 		AFD28F6027C57A3D00F96AD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD28F5F27C57A3D00F96AD0 /* AppDelegate.swift */; };
 		AFD28F6227C57A3D00F96AD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD28F6127C57A3D00F96AD0 /* SceneDelegate.swift */; };
 		AFD28F6427C57A3D00F96AD0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD28F6327C57A3D00F96AD0 /* MainViewController.swift */; };
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF8809F228451BC500B4457A /* PinLayout in Frameworks */,
+				AFA7BBCF284A36310067C252 /* Expression in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +167,7 @@
 			);
 			name = CalcAdvanced;
 			packageProductDependencies = (
-				AF8809F128451BC500B4457A /* PinLayout */,
+				AFA7BBCE284A36310067C252 /* Expression */,
 			);
 			productName = Calculator;
 			productReference = AFD28F5C27C57A3D00F96AD0 /* CalcAdvanced.app */;
@@ -198,7 +198,7 @@
 			);
 			mainGroup = AFD28F5327C57A3D00F96AD0;
 			packageReferences = (
-				AF8809F028451BC500B4457A /* XCRemoteSwiftPackageReference "PinLayout" */,
+				AFA7BBCD284A36300067C252 /* XCRemoteSwiftPackageReference "Expression" */,
 			);
 			productRefGroup = AFD28F5D27C57A3D00F96AD0 /* Products */;
 			projectDirPath = "";
@@ -458,21 +458,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AF8809F028451BC500B4457A /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+		AFA7BBCD284A36300067C252 /* XCRemoteSwiftPackageReference "Expression" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/layoutBox/PinLayout";
+			repositoryURL = "https://github.com/nicklockwood/Expression";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AF8809F128451BC500B4457A /* PinLayout */ = {
+		AFA7BBCE284A36310067C252 /* Expression */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF8809F028451BC500B4457A /* XCRemoteSwiftPackageReference "PinLayout" */;
-			productName = PinLayout;
+			package = AFA7BBCD284A36300067C252 /* XCRemoteSwiftPackageReference "Expression" */;
+			productName = Expression;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
