@@ -1,5 +1,5 @@
 //
-//  UIViewController.swift
+//  UIViewController+Extensions.swift
 //  Calculator
 //
 //  Created by Кристина Максимова on 22.02.2022.

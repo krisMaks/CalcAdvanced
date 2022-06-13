@@ -22,7 +22,6 @@ class MainView: UIView {
     let historyButton: UIButton = {
         let button = UIButton(type: .system)
         button.addStyleHistoryButton()
-//        button.addTarget(self, action: #selector(getHistory), for: .touchUpInside)
         return button
     }()
     private let resultView: UIView = {
@@ -70,7 +69,6 @@ class MainView: UIView {
     var sharedConstraints: [NSLayoutConstraint] = []
     
     let namesSharedButton: [[String]] = [["AC", "x²", "x³", "xª", "÷"], ["MC", "7", "8", "9", "×"], ["M＋", "4", "5", "6", "-"], ["M౼", "1", "2", "3", "+"], ["MR", "±", "0", ".", "="]]
-    let namesCompactButton: [[String]] = [["π", "AC", "x²", "x³", "xª", "÷"], ["e", "MC", "7", "8", "9", "×"], ["sin", "M＋", "4", "5", "6", "-"], ["cos", "M౼", "1", "2", "3", "+"], ["tan", "MR", "±", "0", ".", "="]]
     let namesRegularButton: [[String]] = [["(", "π", "AC", "x²", "x³", "xª", "÷"], [")", "e", "MC", "7", "8", "9", "×"], ["√", "sin", "M＋", "4", "5", "6", "-"], ["∛", "cos", "M౼", "1", "2", "3", "+"], ["%", "tan", "MR", "±", "0", ".", "="]]
     var buttons = [[UIButton]]()
     

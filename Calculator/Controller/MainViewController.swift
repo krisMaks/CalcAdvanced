@@ -73,31 +73,31 @@ class MainViewController: UIViewController {
         for lines in mainView.buttons {
             for button in lines {
                 if !(button.currentTitle?.containsOtherThan(.nums))! {
-                    button.addTarget(self, action: #selector(numberInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.binaryOperations))! {
-                    button.addTarget(self, action: #selector(binaryOperatorInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(binaryOperatorPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.equal))! {
-                    button.addTarget(self, action: #selector(equalOperation), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(equalPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.dot))! {
-                    button.addTarget(self, action: #selector(dotInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(dotPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.unaryOperations))! {
-                    button.addTarget(self, action: #selector(unaryOperatorInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(unaryOperatorPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.other))! {
-                    button.addTarget(self, action: #selector(otherOperatorInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(otherOperatorPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.percent))! {
-                    button.addTarget(self, action: #selector(persentInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(persentPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.memory))! {
-                    button.addTarget(self, action: #selector(memoryOperatorInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(memoryOperatorPressed), for: .touchUpInside)
                 }
                 if !(button.currentTitle?.containsOtherThan(.bracket))! {
-                    button.addTarget(self, action: #selector(bracketInput), for: .touchUpInside)
+                    button.addTarget(self, action: #selector(bracketPressed), for: .touchUpInside)
                 }
             }
         }
@@ -141,12 +141,12 @@ class MainViewController: UIViewController {
         currentInput = result
     }
     
-    @objc func persentOperatorPressed() {
+    @objc func persentPressed() {
         guard let result = model.persentInput(currentInput) else { return }
         currentInput = result
     }
     
-    @objc func dotOperatorPressed() {
+    @objc func dotPressed() {
         guard let currentResult = mainView.resultLabel.text else { return }
         guard let result = model.dotInput(currentResult) else { return }
         mainView.resultLabel.text = result
