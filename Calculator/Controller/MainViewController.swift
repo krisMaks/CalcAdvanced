@@ -167,6 +167,9 @@ class MainViewController: UIViewController {
         let vc = HistoryViewController()
         if let history = UserSettings.historyArray {
             vc.historyView.historyItem = history
+            if #available(iOS 15.0, *) {
+                vc.sheetPresentationController?.prefersGrabberVisible = true
+            }
             present(vc, animated: true, completion: nil)
         } else {
             self.alertEmptyHistory()
