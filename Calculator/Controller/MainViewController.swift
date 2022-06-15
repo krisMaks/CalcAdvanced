@@ -11,6 +11,11 @@ class MainViewController: UIViewController {
  
     private var mainView = MainView()
     private var model = CalculateModel()
+    private var numberFormatter: NumberFormatter {
+        let nf = NumberFormatter()
+        nf.maximumFractionDigits = 15
+        return nf
+    }
     private var currentInput: Double {
         get {
             return Double(mainView.resultLabel.text ?? "0") ?? 0
@@ -24,7 +29,7 @@ class MainViewController: UIViewController {
                 if valueArray[1] == "0" {
                     mainView.resultLabel.text = "\(valueArray[0])"
                 } else {
-                    mainView.resultLabel.text = "\(newValue.roundWithRule(model.firstOperand, model.secondOperand))"
+                    mainView.resultLabel.text = numberFormatter.string(from: newValue as NSNumber)
                 }
                 model.stillTyping = false
             }
