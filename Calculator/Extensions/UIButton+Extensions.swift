@@ -9,6 +9,11 @@ import UIKit
 
 extension UIButton {
     
+    var textValue: String {
+        guard let title = self.currentTitle else { return "+" }
+        return title
+    }
+    
     func addStyleMainButton() {
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.font = UIFont(name: "Menlo", size: 30)

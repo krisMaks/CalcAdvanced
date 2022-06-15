@@ -118,9 +118,9 @@ class MainView: UIView {
                 button.addStyleMainButton()
                 button.setTitle(name, for: .normal)
                 newButtons.append(button)
-                if !name.containsOtherThan(.nums) {
+                if name.containsOnly(.nums) {
                     button.backgroundColor = UIColor(named: "grayButton")
-                } else if !name.containsOtherThan(.mainOperations) {
+                } else if name.containsOnly(.mainOperations) {
                     button.backgroundColor = UIColor(named: "orangeButton")
                 } else {
                     button.backgroundColor = UIColor(named: "darkGrayButton")

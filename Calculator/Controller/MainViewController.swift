@@ -72,31 +72,31 @@ class MainViewController: UIViewController {
         mainView.historyButton.addTarget(self, action: #selector(getHistory), for: .touchUpInside)
         for lines in mainView.buttons {
             for button in lines {
-                if !(button.currentTitle?.containsOtherThan(.nums))! {
+                if button.textValue.containsOnly(.nums) {
                     button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.binaryOperations))! {
+                if button.textValue.containsOnly(.binaryOperations) {
                     button.addTarget(self, action: #selector(binaryOperatorPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.equal))! {
+                if button.textValue.containsOnly(.equal) {
                     button.addTarget(self, action: #selector(equalPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.dot))! {
+                if button.textValue.containsOnly(.dot) {
                     button.addTarget(self, action: #selector(dotPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.unaryOperations))! {
+                if button.textValue.containsOnly(.unaryOperations) {
                     button.addTarget(self, action: #selector(unaryOperatorPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.other))! {
+                if button.textValue.containsOnly(.other) {
                     button.addTarget(self, action: #selector(otherOperatorPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.percent))! {
+                if button.textValue.containsOnly(.percent) {
                     button.addTarget(self, action: #selector(persentPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.memory))! {
+                if button.textValue.containsOnly(.memory) {
                     button.addTarget(self, action: #selector(memoryOperatorPressed), for: .touchUpInside)
                 }
-                if !(button.currentTitle?.containsOtherThan(.bracket))! {
+                if button.textValue.containsOnly(.bracket) {
                     button.addTarget(self, action: #selector(bracketPressed), for: .touchUpInside)
                 }
             }
@@ -186,7 +186,7 @@ class MainViewController: UIViewController {
             if UserSettings.historyArray.count > 19 {
                 UserSettings.historyArray = []
             }
-            if !self.model.operationSymbol.containsOtherThan(.binaryOperations) {
+            if !self.model.operationSymbol.containsOnly(.binaryOperations) {
                 UserSettings.historyArray.insert("\(self.model.firstOperand) \(self.model.operationSymbol) \(self.model.secondOperand)", at: 0)
             }
         }

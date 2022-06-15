@@ -21,9 +21,9 @@ extension String {
         case memory = "M＋C౼R"
     }
     
-    func containsOtherThan(_ chars: Chars) -> Bool {
+    func containsOnly(_ chars: Chars) -> Bool {
         let set = CharacterSet(charactersIn: chars.rawValue)
-        return self.rangeOfCharacter(from: set.inverted) != nil
+        return self.rangeOfCharacter(from: set) != nil
     }
     
     func numberBrackets() -> Bool {
