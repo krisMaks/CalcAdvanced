@@ -10,7 +10,7 @@ import UIKit
 extension UIButton {
     
     var textValue: String {
-        guard let title = self.currentTitle else { return "+" }
+        guard let title = self.currentTitle else { return "" }
         return title
     }
     
