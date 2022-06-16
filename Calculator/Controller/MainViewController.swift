@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     private var model = CalculateModel()
     private var numberFormatter: NumberFormatter {
         let nf = NumberFormatter()
-        nf.maximumFractionDigits = 15
+        nf.maximumFractionDigits = 14
         return nf
     }
     private var currentInput: Double {
