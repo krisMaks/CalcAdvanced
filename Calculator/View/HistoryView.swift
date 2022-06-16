@@ -11,7 +11,7 @@ class HistoryView: UIView {
     //Создание необходимых UI-элементов, констант и переменных
     let tableView: UITableView = {
         let table = UITableView()
-        table.backgroundColor = UIColor(named: "grayButton")
+        table.backgroundColor = UIColor(named: "lightBlack")
         table.allowsSelection = false
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
@@ -30,7 +30,9 @@ class HistoryView: UIView {
     
     //Добавление subview на view
     func setupView() {
-        self.backgroundColor = UIColor(named: "grayButton")
+        self.backgroundColor = UIColor(named: "lightBlack")
+        self.layer.borderWidth = 1
+        self.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 0.5)
         self.addSubview(titleLabel)
         self.addSubview(tableView)
     }
